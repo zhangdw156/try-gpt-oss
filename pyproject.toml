@@ -1,0 +1,14 @@
+[project]
+name = "try-gpt-oss"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "deepspeed>=0.17.4",
+    "kernels>=0.9.0",
+    "peft>=0.17.0",
+    "swanlab>=0.6.8",
+    "transformers>=4.55.0",
+    "trl>=0.21.0",
+]

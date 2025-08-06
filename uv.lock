@@ -116,6 +116,20 @@ wheels = [
 ]
 
 [[package]]
+name = "bitsandbytes"
+version = "0.46.1"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
+dependencies = [
+    { name = "numpy" },
+    { name = "torch" },
+]
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/d2/b2/9dadb4f8dca3948e35c1ebfee75ca82353e41468b41ff785430595f8e6f0/bitsandbytes-0.46.1-py3-none-manylinux_2_24_aarch64.whl", hash = "sha256:21b349f776d04c6c1380405961081de29c84f49640b79d3d199b6d719818da84" },
+    { url = "https://mirrors.aliyun.com/pypi/packages/6b/1e/c26dbcb46cebb49fa6b17ff888966e6d8f306078b095a5df801a583549d0/bitsandbytes-0.46.1-py3-none-manylinux_2_24_x86_64.whl", hash = "sha256:b0ee4a204fb926d4eae02bc2f5468ae3c11c011cfa849a4c771d4c6b201f57ae" },
+    { url = "https://mirrors.aliyun.com/pypi/packages/85/7d/06da01fac23a5032632dd7874b31c1d9b7b9af2314b2b07e5f99641950da/bitsandbytes-0.46.1-py3-none-win_amd64.whl", hash = "sha256:9f6f61376bd0e9780c5dc4ddee7d1f52cb10fe8034a1ea588611f4e8b87eb6a7" },
+]
+
+[[package]]
 name = "boto3"
 version = "1.40.3"
 source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
@@ -292,7 +306,7 @@ wheels = [
 
 [[package]]
 name = "datasets"
-version = "3.6.0"
+version = "4.0.0"
 source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
 dependencies = [
     { name = "dill" },
@@ -309,9 +323,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "xxhash" },
 ]
-sdist = { url = "https://mirrors.aliyun.com/pypi/packages/1a/89/d3d6fef58a488f8569c82fd293ab7cbd4250244d67f425dcae64c63800ea/datasets-3.6.0.tar.gz", hash = "sha256:1b2bf43b19776e2787e181cfd329cb0ca1a358ea014780c3581e0f276375e041" }
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/e3/9d/348ed92110ba5f9b70b51ca1078d4809767a835aa2b7ce7e74ad2b98323d/datasets-4.0.0.tar.gz", hash = "sha256:9657e7140a9050db13443ba21cb5de185af8af944479b00e7ff1e00a61c8dbf1" }
 wheels = [
-    { url = "https://mirrors.aliyun.com/pypi/packages/20/34/a08b0ee99715eaba118cbe19a71f7b5e2425c2718ef96007c325944a1152/datasets-3.6.0-py3-none-any.whl", hash = "sha256:25000c4a2c0873a710df127d08a202a06eab7bf42441a6bc278b499c2f72cd1b" },
+    { url = "https://mirrors.aliyun.com/pypi/packages/eb/62/eb8157afb21bd229c864521c1ab4fa8e9b4f1b06bafdd8c4668a7a31b5dd/datasets-4.0.0-py3-none-any.whl", hash = "sha256:7ef95e62025fd122882dbce6cb904c8cd3fbc829de6669a5eb939c77d50e203d" },
 ]
 
 [[package]]
@@ -1673,6 +1687,7 @@ name = "try-gpt-oss"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "bitsandbytes" },
     { name = "dashscope" },
     { name = "deepspeed" },
     { name = "dotenv" },
@@ -1686,6 +1701,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "bitsandbytes", specifier = ">=0.46.1" },
     { name = "dashscope", specifier = ">=1.24.1" },
     { name = "deepspeed", specifier = ">=0.17.4" },
     { name = "dotenv", specifier = ">=0.9.9" },

@@ -2,36 +2,42 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from trl import SFTConfig, SFTTrainer
 from peft import LoraConfig, PeftModel
 import os
+import json
 import pandas as pd
-import re
+from utils import md_to_dict_str
 import torch
 from datasets import Dataset
 
 # os.environ['CUDA_VISIBLE_DEVICES'] = '0'  # 设置可见GPU，如果需要的话
 
-model_id = '/data/download-model/gpt-oss-20b'  # 基础模型ID或路径
-
+model_id = os.getenv("MODEL_ID", "/data/download-model/gpt-oss-20b")  # 基础模型ID或路径
+final_adapter_path = os.getenv("FINAL_ADAPTER_PATH",
+                               "/data/finetuning/finetuned-model/gpt-oss-20b-bid-adapter")  # LoRA适配器保存路径
+final_merged_path = os.getenv("FINAL_MERGED_PATH",
+                              "/data/finetuning/finetuned-model/gpt-oss-20b-bid")  # 合并后的模型保存路径
+EPOCHS = int(os.getenv("EPOCHS", 2))
+LR = float(os.getenv("LR", 2e-5))
 tokenizer = AutoTokenizer.from_pretrained(model_id)  # 加载tokenizer
 
-dataset_id = '../dataset/bid-announcement-zh-v1.0.jsonl'  # 数据集路径
+dataset_id = './dataset/bid-announcement-zh-v1.0.jsonl'  # 数据集路径
 
 dataset = pd.read_json(dataset_id, lines=True)  # 读取JSONL格式的数据集
 
-
-def md_to_dict_str(text: str) -> str:
-    """
-    从Markdown文本中提取字典字符串
-    :param text: Markdown文本
-    :return: 提取的字典字符串，如果未找到则返回空字符串
-    """
-    pattern = r'(\{.*?\})'  # 匹配花括号内的内容
-    match = re.search(pattern, text, re.DOTALL)  # 查找匹配项
-    return match.group(1) if match else ''  # 返回匹配的字典字符串，否则返回空字符串
-
-
 dataset['output'] = dataset['output'].apply(md_to_dict_str)  # 提取output字段中的字典字符串
+print(f"output示例: {dataset.loc[0, 'output']}")
+gt_path = "./data/gt.txt"
+if not os.path.exists(gt_path):
+    # 文件不存在，创建并写入内容
+    with open(gt_path, "w", encoding="utf-8") as f:
+        for row in dataset['output']:
+            # 解析JSON并重新序列化，确保中文正常显示
+            f.write(json.dumps(json.loads(row), ensure_ascii=False) + '\n')
+    print(f"文件已创建并写入: {gt_path}")
+else:
+    print(f"文件已存在，不执行操作: {gt_path}")
 print(f"dataset length: {len(dataset)}")  # 打印数据集长度
 dataset = dataset[dataset['output'] != '']  # 移除output为空的行
+print(f"output示例: {dataset.loc[0, 'output']}")
 print(f"dataset length after drop '': {len(dataset)}")  # 打印过滤后的数据集长度
 
 
@@ -42,14 +48,15 @@ def formatting(example: dict) -> str:
     :return: 格式化后的字符串
     """
     messages = [
-        {"role": "developer", "content": example['instruction']},  # 定义developer角色和内容
+        {"role": "system", "content": example['instruction']},  # 定义developer角色和内容
         {"role": "user", "content": example['input']},  # 定义user角色和内容
         {"role": "assistant", "content": example['output']}  # 定义assistant角色和内容
     ]
     return tokenizer.apply_chat_template(  # 使用tokenizer的chat_template函数格式化消息
         messages,
         tokenize=False,  # 不进行tokenize，返回字符串
-        add_generation_prompt=False  # 不添加生成提示
+        add_generation_prompt=False,  # 不添加生成提示
+        enable_thinking=False,
     )
 
 
@@ -58,19 +65,25 @@ dataset['text'] = dataset.apply(
     axis=1
 )  # 将formatting函数应用于数据集的每一行
 dataset = dataset[['text']]  # 只保留text列
+if dataset.loc[0, 'text'].find("Reasoning: medium"):
+    dataset['text'] = dataset['text'].apply(
+        lambda x: x.replace("Reasoning: medium", "Reasoning: low")
+    )
 print(f"数据示例\n{dataset.loc[0, 'text']}")  # 打印数据集中的一个示例
 
 dataset = Dataset.from_pandas(dataset)  # 将pandas DataFrame转换为datasets Dataset对象
 print(dataset)  # 打印Dataset对象
 
-model = AutoModelForCausalLM.from_pretrained(model_id)  # 加载基础模型
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+)  # 加载基础模型
 
 sft_config = SFTConfig(
-    output_dir='../sft_outputs',  # 设置输出目录
+    output_dir='./sft_outputs',  # 设置输出目录
     report_to='swanlab',  # 设置报告工具
-    num_train_epochs=5,  # 设置训练轮数
+    num_train_epochs=EPOCHS,  # 设置训练轮数
     per_device_train_batch_size=1,  # 设置每设备训练批次大小
-    learning_rate=2e-5  # 设置学习率
+    learning_rate=LR  # 设置学习率
 )
 
 
@@ -107,8 +120,13 @@ trainer = SFTTrainer(
 
 trainer.train()  # 开始训练
 
-final_adapter_path = "/data/finetuning/gpt-oss-20b-bid-adapter"  # LoRA适配器保存路径
 trainer.save_model(final_adapter_path)  # 保存LoRA适配器
+
+# 删除模型
+del model
+
+# 重新加载模型
+model = AutoModelForCausalLM.from_pretrained(model_id)  # 加载基础模型
 
 # 加载训练好的LoRA适配器
 peft_model = PeftModel.from_pretrained(model, final_adapter_path)  # 从保存的路径加载LoRA适配器
@@ -117,7 +135,6 @@ peft_model = PeftModel.from_pretrained(model, final_adapter_path)  # 从保存�
 merged_model = peft_model.merge_and_unload()  # 合并LoRA权重并卸载LoRA适配器
 
 # 保存合并后的完整模型
-final_merged_path = "/data/finetuning/gpt-oss-20b-bid"  # 合并后的模型保存路径
 print(f"正在保存合并后的完整模型至: {final_merged_path}")  # 打印保存路径
 merged_model.save_pretrained(final_merged_path)  # 保存合并后的模型
 tokenizer.save_pretrained(final_merged_path)  # 保存tokenizer

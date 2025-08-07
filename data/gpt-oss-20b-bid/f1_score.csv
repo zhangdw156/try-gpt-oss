@@ -1,0 +1,96 @@
+﻿line_number,TP,FP,FN,model_output_valid,field_项目名称,field_公告类型,field_行业分类,field_发布时间,field_预算金额,field_采购人,field_响应文件截至提交时间,field_开标地址,field_所在地区
+1,8,1,1,True,OK (Matched),OK (Matched),Mismatch,Mismatch,OK (Matched),Mismatch,OK (Matched),OK (Matched),Mismatch
+2,9,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch
+3,8,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+4,6,3,3,True,OK (Matched),Mismatch,Mismatch,OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch
+5,7,2,2,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch
+6,9,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+7,8,1,1,True,OK (Matched),OK (Matched),Mismatch,Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+8,8,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch
+9,9,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+10,9,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),OK (Matched)
+11,6,3,3,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),Mismatch
+12,9,0,0,True,OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch
+13,6,3,3,True,OK (Matched),Mismatch,Mismatch,OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch,Mismatch
+14,7,2,2,True,OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch
+15,6,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),Mismatch
+16,7,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),OK (Matched)
+17,7,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),OK (Matched)
+18,6,3,1,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),FP (Hallucinated),FP (Hallucinated),Mismatch
+19,9,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+20,7,2,2,True,Mismatch,Mismatch,OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),OK (Matched)
+21,7,2,2,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),OK (Matched),Mismatch,OK (Matched)
+22,5,4,4,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch
+23,6,1,1,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),OK (both empty),OK (both empty),Mismatch
+24,4,4,5,True,Mismatch,OK (Matched),Mismatch,Mismatch,FN (Missed),OK (Matched),OK (Matched),Mismatch,Mismatch
+25,5,2,2,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),OK (both empty),OK (both empty),Mismatch
+26,7,2,2,True,OK (Matched),Mismatch,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),OK (Matched)
+27,5,4,4,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),OK (Matched),Mismatch,Mismatch
+28,4,5,5,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),OK (Matched),Mismatch,Mismatch
+29,6,3,3,True,Mismatch,OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),Mismatch,OK (Matched)
+30,6,3,3,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+31,5,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (Matched),OK (both empty),OK (both empty),Mismatch
+32,5,4,4,True,OK (Matched),Mismatch,OK (Matched),Mismatch,Mismatch,OK (Matched),OK (Matched),Mismatch,Mismatch
+33,6,0,3,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),FN (Missed),OK (Matched),OK (Matched),FN (Missed),FN (Missed)
+34,7,2,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),FP (Hallucinated),FP (Hallucinated),OK (Matched)
+35,5,2,2,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),Mismatch
+36,5,4,4,True,OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch
+37,5,3,3,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),FP (Hallucinated),OK (Matched),Mismatch,FN (Missed),OK (Matched)
+38,6,3,3,True,OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch,OK (Matched),Mismatch,Mismatch,OK (Matched)
+39,4,5,5,True,OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch
+40,5,4,4,True,Mismatch,OK (Matched),Mismatch,Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+41,4,5,5,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch
+42,4,6,5,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch
+43,8,1,1,True,OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+44,8,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched)
+45,5,4,4,True,OK (Matched),Mismatch,Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+46,6,3,3,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched)
+47,5,2,2,True,OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (both empty),OK (both empty),OK (Matched)
+48,7,2,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),FP (Hallucinated),OK (Matched),OK (Matched),OK (Matched),Mismatch
+49,5,4,4,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch
+50,5,4,4,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch
+51,7,2,2,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),Mismatch
+52,6,1,3,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),FN (Missed),FN (Missed),OK (Matched)
+53,7,2,2,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch
+54,8,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched)
+55,4,5,5,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,Mismatch,OK (Matched)
+56,6,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),Mismatch
+57,6,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),Mismatch
+58,8,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched)
+59,6,1,1,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),Mismatch
+60,7,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),OK (Matched)
+61,6,1,3,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),FN (Missed),FN (Missed),OK (Matched)
+62,7,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),OK (Matched)
+63,6,1,1,True,OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),Mismatch
+64,5,4,4,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,OK (Matched)
+65,7,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (both empty),OK (Matched)
+66,5,2,2,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch,OK (both empty),OK (both empty),Mismatch
+67,6,3,3,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,Mismatch,OK (Matched)
+68,6,3,3,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch
+69,5,4,4,True,Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch
+70,8,0,0,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),OK (both empty),OK (Matched),OK (Matched),OK (Matched),OK (Matched)
+71,7,2,2,True,OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch,OK (Matched),Mismatch,OK (Matched),OK (Matched)
+72,6,3,3,True,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch
+73,7,2,2,True,Mismatch,OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),Mismatch,Mismatch
+74,6,3,3,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,OK (Matched)
+75,7,2,2,True,OK (Matched),OK (Matched),OK (Matched),OK (Matched),Mismatch,OK (Matched),OK (Matched),OK (Matched),Mismatch
+76,1,8,8,True,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+77,0,9,9,True,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+78,2,6,7,True,Mismatch,Mismatch,OK (Matched),OK (Matched),Mismatch,Mismatch,Mismatch,FN (Missed),Mismatch
+79,1,8,7,True,Mismatch,OK (Matched),Mismatch,Mismatch,FP (Hallucinated),Mismatch,Mismatch,Mismatch,Mismatch
+80,1,8,8,True,Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+81,0,9,9,True,Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+82,2,7,7,True,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+83,1,8,7,True,Mismatch,OK (Matched),Mismatch,Mismatch,FP (Hallucinated),Mismatch,Mismatch,Mismatch,Mismatch
+84,0,7,9,True,Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,Mismatch,FN (Missed),FN (Missed),Mismatch
+85,0,9,9,True,Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+86,1,5,7,True,Mismatch,Mismatch,Mismatch,OK (Matched),FP (Hallucinated),Mismatch,FN (Missed),FN (Missed),FN (Missed)
+87,2,5,7,True,Mismatch,Mismatch,OK (Matched),OK (Matched),FN (Missed),Mismatch,FN (Missed),Mismatch,Mismatch
+88,2,7,6,True,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,FP (Hallucinated),Mismatch
+89,1,6,6,True,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch,Mismatch,OK (both empty),OK (both empty),Mismatch
+90,1,8,8,True,Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+91,2,7,7,True,Mismatch,OK (Matched),Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+92,1,8,8,True,Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch,Mismatch
+93,1,8,6,True,Mismatch,Mismatch,Mismatch,OK (Matched),Mismatch,Mismatch,FP (Hallucinated),FP (Hallucinated),Mismatch
+94,0,8,7,True,Mismatch,Mismatch,Mismatch,Mismatch,FN (Missed),Mismatch,FP (Hallucinated),FP (Hallucinated),Mismatch
+95,1,6,8,True,Mismatch,Mismatch,OK (Matched),Mismatch,Mismatch,Mismatch,FN (Missed),FN (Missed),Mismatch

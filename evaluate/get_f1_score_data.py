@@ -1,12 +1,13 @@
 import json
 import os
-import torch
-import pandas as pd
-from pathlib import Path
-from transformers import pipeline, AutoTokenizer, BitsAndBytesConfig
-from utils import md_to_dict_str, logger
 import time
+from pathlib import Path
+
+import pandas as pd
 from tqdm import tqdm
+from transformers import pipeline, AutoTokenizer, BitsAndBytesConfig
+
+from utils import md_to_dict_str, logger
 
 
 def process_batch_with_retry(pipe, batch_prompts: list, max_retries_for_single: int = 2):
@@ -31,7 +32,8 @@ def process_batch_with_retry(pipe, batch_prompts: list, max_retries_for_single: 
             batch_prompts,
             max_new_tokens=2048,
             temperature=0.7,
-            do_sample=True
+            do_sample=True,
+            batch_size=4
         )
         logger.info(f"批次 (大小: {len(batch_prompts)}) 处理成功。")
         return outputs
@@ -66,7 +68,8 @@ def process_batch_with_retry(pipe, batch_prompts: list, max_retries_for_single: 
                         batch_prompts,
                         max_new_tokens=2048,
                         temperature=0.7,
-                        do_sample=True
+                        do_sample=True,
+                        batch_size=4
                     )
                     logger.info("单个 prompt 在重试后成功！")
                     return outputs
@@ -112,7 +115,7 @@ def get_f1_score_data(args):
     def formatting(example: dict):
         messages = [
             {"role": "system", "content": example['instruction']},
-            {"role": "user", "content": example['input']},
+            {"role": "user", "content": example['input'][:4096]},
         ]
         return tokenizer.apply_chat_template(
             messages,
@@ -127,6 +130,24 @@ def get_f1_score_data(args):
         dataset['text'] = dataset['text'].apply(
             lambda x: x.replace("Reasoning: medium", "Reasoning: low")
         )
+    # 找到最长的text
+    max_length = dataset['text'].str.len().max()
+    longest_text = dataset[dataset['text'].str.len() == max_length]['text'].iloc[0]
+
+    logger.info(f"最长文本长度: {max_length}")
+    logger.info(f"最长文本内容:\n{longest_text}")
+
+    # 找到最短的text
+    min_length = dataset['text'].str.len().min()
+    shortest_text = dataset[dataset['text'].str.len() == min_length]['text'].iloc[0]
+
+    logger.info(f"最短文本长度: {min_length}")
+    logger.info(f"最短文本内容:\n{shortest_text}")
+
+    # 计算平均文本长度
+    avg_length = dataset['text'].str.len().mean()  # 核心代码：求长度的平均值
+    logger.info(f"平均文本长度: {round(avg_length, 2)}")  # 保留两位小数，更易读
+
     prompts = dataset['text'].tolist()
     logger.info(f"输入示例: {prompts[0]}")
 
@@ -139,9 +160,9 @@ def get_f1_score_data(args):
         "text-generation",
         model=model_id,
         model_kwargs={
-            "quantization_config": quantization_config,
+            # "quantization_config": quantization_config,
             "device_map": "auto"
-        }
+        },
     )
 
     # 访问分词器, 设置 padding_side 为 'left'
@@ -152,7 +173,7 @@ def get_f1_score_data(args):
     sample_size = getattr(args, 'sample_size', 10)
     logger.info(f"采样数量: {sample_size}")
     prompts = prompts[:sample_size]
-    batch_size = 10
+    batch_size = 20
     output_path = Path(f"./data/{model_name}")
     output_path.mkdir(parents=True, exist_ok=True)
     output_file = output_path / "results.txt"

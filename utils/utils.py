@@ -150,7 +150,8 @@ def create_multisheet_excel_report(csv_list: list[str], output_excel_path: str):
 if __name__ == '__main__':
     create_multisheet_excel_report(
         csv_list=[
-            '../data/Qwen3-14B-bid/f1_score.csv'
+            '../data/Qwen3-14B-bid/f1_score.csv',
+            '../data/gpt-oss-20b-bid/f1_score.csv',
         ],
         output_excel_path="../data/f1_score_report.xlsx"
     )

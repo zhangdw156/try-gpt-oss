@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd "$SCRIPT_DIR/.."
-echo -e "${COLOR_BLUE}当前工作目录已设置为: $(pwd)"
+echo -e "当前工作目录已设置为: $(pwd)"
 
 bash ./jobs/qwen3-14b.sh > "logs/qwen3-14b.log" 2>&1
 

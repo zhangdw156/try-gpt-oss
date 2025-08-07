@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd "$SCRIPT_DIR/.."
-echo -e "${COLOR_BLUE}当前工作目录已设置为: $(pwd)"
+echo -e "当前工作目录已设置为: $(pwd)"
 
 export PYTHONPATH="$(pwd)"
 echo "python项目根目录: ${PYTHONPATH}"

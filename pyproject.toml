@@ -15,5 +15,6 @@ dependencies = [
     "peft>=0.17.0",
     "swanlab>=0.6.8",
     "transformers>=4.55.0",
+    "triton>=3.4.0",
     "trl>=0.21.0",
 ]

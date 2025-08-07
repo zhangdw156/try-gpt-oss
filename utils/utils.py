@@ -325,10 +325,10 @@ def add_f1_score_formulas_to_report(excel_path: str):
 if __name__ == '__main__':
     # 定义输入和输出路径
     csv_files_to_process = [
-        '../data/Qwen3-14B-bid/f1_score.csv',
-        '../data/gpt-oss-20b-bid/f1_score.csv',
+        './data/Qwen3-14B-bid/f1_score.csv',
+        './data/gpt-oss-20b-bid/f1_score.csv',
     ]
-    report_path = "../data/f1_score_report.xlsx"
+    report_path = "./data/f1_score_report.xlsx"
 
     # 第一步：创建包含原始数据的多工作表Excel报告
     create_multisheet_excel_report(

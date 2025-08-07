@@ -1,6 +1,16 @@
-## 添加支持gpt-oss的vllm
+## 微调gpt-oss-20b，应用于采购领域实体抽取
 
+### v0.1.0
 
-```shell
-uv pip install --pre vllm==0.10.1+gptoss     --extra-index-url https://wheels.vllm.ai/gpt-oss/     --extra-index-url https://download.pytorch.org/whl/nightly/cu128     --index-strategy unsafe-best-match --index-url https://mirrors.aliyun.com/pypi/simple
-```
+使用的数据集是 Titongda/bid-announcement-zh-v1.0
+
+使用的微调框架是transformers+trl+peft
+
+微调了gpt-oss-20b和qwen3-14进行对比
+
+| 工作表名称               | 行数  | 列数 | Total TP | Total FP | Total FN | Precision   | Recall      | F1-Score    |
+|--------------------------|-------|------|----------|----------|----------|-------------|-------------|-------------|
+| Qwen3-14B-bid#f1_score   | 2000  | 14   | 11874    | 3445     | 3689     | 0.775115869 | 0.762963439 | 0.768991646 |
+| gpt-oss-20b-bid#f1_score | 2000  | 14   | 11663    | 3617     | 3900     | 0.76328534  | 0.749405642 | 0.756281814 |
+
+qwen3-14b效果似乎更好一点，但很有可能在用微调后的gpt-oss-20b进行推理的时候，对输入进行了裁切（因为目前transformers生态的pipline对gpt-oss-20b的支持不是很好）。 所以导致最终结果不如qwen3-14b，准备再进行一波推理来验证。

@@ -9,5 +9,5 @@ wheels/
 # Virtual environments
 .venv
 *swanlog
-sft_outputs/
+*sft_outputs
 .idea/

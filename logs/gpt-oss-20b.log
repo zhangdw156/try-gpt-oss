@@ -1,0 +1,192 @@
+当前工作目录已设置为: /home/fine/work/try-gpt-oss
+python项目根目录: /home/fine/work/try-gpt-oss
+2025-08-07 10:16:18.473 | INFO     | __main__:get_f1_score_data:30 - 加载数据集: ./dataset/bid-announcement-zh-v1.0.jsonl
+2025-08-07 10:16:18.551 | INFO     | __main__:get_f1_score_data:34 - 加载分词器: /data/finetuning/finetuned-model/gpt-oss-20b-bid
+2025-08-07 10:16:19.152 | INFO     | __main__:get_f1_score_data:39 - 使用模型: gpt-oss-20b-bid
+2025-08-07 10:16:19.268 | INFO     | __main__:get_f1_score_data:61 - 输入示例: <|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
+Knowledge cutoff: 2024-06
+Current date: 2025-08-07
+
+Reasoning: low
+
+# Valid channels: analysis, commentary, final. Channel must be included for every message.<|end|><|start|>developer<|message|># Instructions
+
+分析给定的公告，提取其中的“项目名称”、“公告类型”、“行业分类”、“发布时间”、“预算金额”、“采购人”、“响应文件截至提交时间”、”开标地址“、“所在地区”，并将其以json格式进行输出。如果公告出现“最高投标限价”相关的值，则“预算金额”为该值。请再三确认提取的值为项目的“预算金额”，而不是其他和“预算金额”无关的数值，否则“预算金额”中填入'None'。如果确认提取到了“预算金额”，请重点确认提取到的金额的单位，所有的“预算金额”单位为“元”。当涉及到进制转换的计算（比如“万元”转换为“元”单位）时，必须进行进制转换。其中“公告类型”只能从以下12类中挑选：采购公告-招标、采购公告-邀标、采购公告-询价、采购公告-竞谈、采购公告-竞磋、采购公告-竞价、采购公告-单一来源、采购公告-变更、采购结果-中标、采购结果-终止、采购结果-废标、采购结果-合同。其中，“行业分类”只能从以下12类中挑选：建筑与基础设施、信息技术与通信、能源与环保、交通与物流、金融与保险、医疗与健康、教育与文化、农业与林业、制造与工业、政府与公共事业、旅游与娱乐、其他。<|end|><|start|>user<|message|>#### 吴桥县人民法院刑事智慧法庭装备采购招标公告
+
+发布时间：2024-08-27
+10:29信息来源：河北[原文链接地址](http://ggzy.hebei.gov.cn/hbggfwpt/jydt/003001/003001001/003001001001/20240826/b8c29e54-d014-42ba-a2c0-3b06a9825846.html)
+
+**项目概况**
+
+吴桥县人民法院刑事智慧法庭装备采购招标项目的潜在投标人应在 河北省公共资源交易服务平台获取招标（采购）文件,并于2024-09-18
+09:00(北京时间)前递交投标（响应）文件。  
+
+**一、项目基本情况**
+
+项目编号：HB2024081770010002  
+项目名称：吴桥县人民法院刑事智慧法庭装备采购  
+招标方式：公开招标  
+预算金额：400000  
+最高限价：400000  
+采购需求：刑事智慧法庭设备一套  
+合同履行期限：签订合同后60日历天内安装调试完毕并交付使用  
+本项目不接受联合体投标  
+
+**二、申请人资格要求**
+
+1、满足《中华人民共和国政府采购法》第二十二条规定；  
+2、落实政府采购政策需满足的资格要求：  
+本项目专门面向小微企业采购；供应商应为小微企业、监狱企业、残疾人福利性单位  
+3、本项目的特定资格要求：  
+无  
+
+**三、获取招标文件**
+
+时间:2024-08-27至2024-09-02， 9-12-12-17(北京时间，法定节假日除外。)  
+地点： 河北省公共资源交易服务平台  
+方式：其它  
+售价：0  
+
+**四、提交投标文件截止时间、开标时间和地点**
+
+2024-09-18 09:00(北京时间)  
+地点：沧州市公共资源交易综合信息平台  
+
+**五、公告期限**
+
+自本公告发布之日起5个工作日
+
+**六、其他补充事宜**
+
+1.本公告发布媒体：中国政府采购网、河北省政府采购网、河北省公共资源交易服务平台；
+2.已在河北省公共资源交易服务平台注册登记并办理数字证书（CA）的供应商可直接登录系统（网址：http://www.hebpr.gov.cn/hbggfwpt/）后，选择“沧州市（全流程）”，打开【政府采购-
+交易文件下载】菜单，选择交易类型后，在项目列表中选择对应项目，点击项目右侧及“交易文件下载”的↓符号，在打开页面中填写联系电话后，进行交易文件下载操作。未经主体注册登记的供应商，请按照“沧州市公共资源交易大厅”首页的“沧州市公共资源交易中心关于市场主体登记注册的公告“的要求办理相关手续。未按要求在平台系统下载招标文件视为放弃报名，其投标将被拒绝；
+3.本次招标为全流程电子招投标，投标文件采用数据电子文件，供应商须通过“沧州市公共资源交易综合信息平台”在线参与开标。供应商须在投标截止时间前完成电子投标文件的递交，在线递交电子投标文件前，供应商须使用
+CA 数字证书为投标文件进行加密。加密的电子响应文件（*.CZTF
+格式），应在文件领取开始时间至响应文件递交截止时间前通过“河北省公共资源交易服务平台”上传至电子交易系统的指定位置；上传时必须得到电脑“上传成功”的确认。请供应商在上传时认真检查上传响应文件是否完整、正确。供应商因交易系统问题无法上传电子响应文件时，请在工作时间与技术支持联系，联系电话：400-998-0000；
+4.沧州市采购办监督电话：0317-2017288
+；代理机构接受质疑电话：0317-7589168；供应商认为采购文件使自己合法权益受到损害的，可在知道或者应知其权益受到损害之日起 7
+个工作日内，以书面形式向采购人或招标代理机构提出质疑；
+5.本项目一律通过交易平台在网上发布澄清、补疑、答疑等文件，供应商要随时登录会员账号查看。未能及时关注造成的一切后果由供应商自行承担。未能及时下载招标文件、递交并解密投标文件所造成的一切后果由供应商自行承担；
+6.评标方法和标准：综合评分法
+7.本项目采用“双盲+分散”形式评审,投标文件技术部分采用暗标方式编制及评审，即投标人在编制投标文件技术部分时屏蔽投标人名称等信息，评标委员会依照招标文件的规定对投标文件技术部分进行评审。
+
+**七、对本次招标提出询问，请按以下方式联系**
+
+1.采购人信息  
+名称：吴桥县人民法院本级  
+地址：河北省沧州市吴桥县桑园镇黄河路  
+联系方式：0317-7389077  
+2.采购代理机构信息  
+名称：河北今创工程项目管理有限公司  
+地址：沧州市解放西路一世界D座8层招标部  
+联系方式：0317-7589177  
+3.项目联系方式  
+项目联系人：王玲  
+电话：0317-7589168  
+本公告信息来源于采购办, [原文链接地址 ](http://www.ccgp-hebei.gov.cn/province/)
+
+[ ](http://www.ccgp-hebei.gov.cn/province/)
+
+[ ](http://www.ccgp-hebei.gov.cn/province/)
+
+<|end|><|start|>assistant
+2025-08-07 10:16:19.268 | INFO     | __main__:get_f1_score_data:64 - 初始化文本生成管道...
+Loading checkpoint shards:   0%|          | 0/9 [00:00<?, ?it/s]Loading checkpoint shards:  11%|█         | 1/9 [00:00<00:05,  1.57it/s]Loading checkpoint shards:  22%|██▏       | 2/9 [00:01<00:05,  1.37it/s]Loading checkpoint shards:  33%|███▎      | 3/9 [00:02<00:04,  1.36it/s]Loading checkpoint shards:  44%|████▍     | 4/9 [00:02<00:03,  1.35it/s]Loading checkpoint shards:  56%|█████▌    | 5/9 [00:03<00:02,  1.35it/s]Loading checkpoint shards:  67%|██████▋   | 6/9 [00:04<00:02,  1.35it/s]Loading checkpoint shards:  78%|███████▊  | 7/9 [00:05<00:01,  1.36it/s]Loading checkpoint shards:  89%|████████▉ | 8/9 [00:05<00:00,  1.37it/s]Loading checkpoint shards: 100%|██████████| 9/9 [00:06<00:00,  1.56it/s]Loading checkpoint shards: 100%|██████████| 9/9 [00:06<00:00,  1.43it/s]
+Device set to use cuda:0
+2025-08-07 10:16:28.527 | INFO     | __main__:get_f1_score_data:77 - 开始生成预测结果...
+2025-08-07 10:16:28.527 | INFO     | __main__:get_f1_score_data:79 - 采样数量: 2000
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/fine/work/try-gpt-oss/evaluate/get_f1_score_data.py", line 125, in <module>
+    get_f1_score_data(args)
+  File "/home/fine/work/try-gpt-oss/evaluate/get_f1_score_data.py", line 80, in get_f1_score_data
+    outputs = pipe(
+              ^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/pipelines/text_generation.py", line 321, in __call__
+    return super().__call__(text_inputs, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 1439, in __call__
+    outputs = list(final_iterator)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/pipelines/pt_utils.py", line 124, in __next__
+    item = next(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/pipelines/pt_utils.py", line 125, in __next__
+    processed = self.infer(item, **self.params)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/pipelines/base.py", line 1365, in forward
+    model_outputs = self._forward(model_inputs, **forward_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/pipelines/text_generation.py", line 419, in _forward
+    output = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 2634, in generate
+    result = self._sample(
+             ^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/generation/utils.py", line 3615, in _sample
+    outputs = self(**model_inputs, return_dict=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 959, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 658, in forward
+    outputs: MoeModelOutputWithPast = self.model(
+                                      ^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 1083, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 491, in forward
+    hidden_states = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 355, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 313, in forward
+    attn_output, attn_weights = attention_interface(
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/fine/work/try-gpt-oss/.venv/lib/python3.12/site-packages/transformers/models/gpt_oss/modeling_gpt_oss.py", line 239, in eager_attention_forward
+    attn_weights = torch.matmul(query, key_states.transpose(2, 3)) * scaling
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 44.29 GiB. GPU 0 has a total capacity of 94.99 GiB of which 38.81 GiB is free. Including non-PyTorch memory, this process has 56.18 GiB memory in use. Of the allocated memory 55.14 GiB is allocated by PyTorch, and 618.93 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-08-07 10:24:46.086 | ERROR    | __main__:main:268 - 文件未找到: [Errno 2] No such file or directory: 'data/gpt-oss-20b-bid/results.txt'. 请检查文件路径。

@@ -3,9 +3,79 @@ import os
 import torch
 import pandas as pd
 from pathlib import Path
-from transformers import pipeline, AutoTokenizer
+from transformers import pipeline, AutoTokenizer, BitsAndBytesConfig
 from utils import md_to_dict_str, logger
 import time
+from tqdm import tqdm
+
+
+def process_batch_with_retry(pipe, batch_prompts: list, max_retries_for_single: int = 2):
+    """
+    使用递归和重试机制处理一个批次。
+
+    如果失败，它会尝试将批次拆分为更小的块。
+    如果一个单独的项失败，它会重试几次，然后才放弃。
+
+    Args:
+        pipe: The transformers pipeline.
+        batch_prompts (list): The list of prompts to process.
+        max_retries_for_single (int): Number of retries for a single failing prompt.
+
+    Returns:
+        list: The output from the pipeline, structured as if it succeeded.
+    """
+    try:
+        # 1. 尝试正常处理整个批次
+        logger.info(f"正在尝试处理批次，大小: {len(batch_prompts)}")
+        outputs = pipe(
+            batch_prompts,
+            max_new_tokens=2048,
+            temperature=0.7,
+            do_sample=True
+        )
+        logger.info(f"批次 (大小: {len(batch_prompts)}) 处理成功。")
+        return outputs
+
+    except Exception as e:
+        # 2. 如果失败，记录错误并开始重试逻辑
+        logger.warning(f"批次 (大小: {len(batch_prompts)}) 推理失败: {e}")
+
+        # 3. 检查批次大小
+        if len(batch_prompts) > 1:
+            # 3a. 如果批次大小 > 1, 拆分并递归
+            logger.info("批次大小 > 1，将拆分为两半进行重试...")
+            mid_point = len(batch_prompts) // 2
+            first_half = batch_prompts[:mid_point]
+            second_half = batch_prompts[mid_point:]
+
+            # 递归调用
+            outputs_first = process_batch_with_retry(pipe, first_half, logger, max_retries_for_single)
+            outputs_second = process_batch_with_retry(pipe, second_half, logger, max_retries_for_single)
+
+            # 合并成功的结果
+            return outputs_first + outputs_second
+
+        else:  # len(batch_prompts) == 1
+            # 3b. 如果批次大小为 1, 进入重试循环
+            logger.error("单个 prompt 推理失败，将进行最多 {max_retries_for_single} 次重试...")
+            for i in range(max_retries_for_single):
+                logger.info(f"重试 {i + 1}/{max_retries_for_single}...")
+                time.sleep(2)  # 在重试前短暂等待，有时有助于解决瞬时问题
+                try:
+                    outputs = pipe(
+                        batch_prompts,
+                        max_new_tokens=2048,
+                        temperature=0.7,
+                        do_sample=True
+                    )
+                    logger.info("单个 prompt 在重试后成功！")
+                    return outputs
+                except Exception as retry_e:
+                    logger.error(f"重试 {i + 1} 失败: {retry_e}")
+
+            # 4. 如果所有重试都失败了，使用最终回退机制
+            logger.critical("所有重试均失败，将使用回退机制。")
+            return [[{'generated_text': batch_prompts[0]}]]
 
 
 def get_f1_score_data(args):
@@ -62,40 +132,103 @@ def get_f1_score_data(args):
 
     # 初始化文本生成管道
     logger.info("初始化文本生成管道...")
+    quantization_config = BitsAndBytesConfig(
+        load_in_8bit=True
+    )
     pipe = pipeline(
         "text-generation",
         model=model_id,
-        torch_dtype=torch.bfloat16,  # 显式指定以获得更好性能
-        device_map="auto",
+        model_kwargs={
+            "quantization_config": quantization_config,
+            "device_map": "auto"
+        }
     )
+
+    # 访问分词器, 设置 padding_side 为 'left'
+    pipe.tokenizer.padding_side = 'left'
 
     # 生成预测结果（取前10个样本）
     logger.info("开始生成预测结果...")
     sample_size = getattr(args, 'sample_size', 10)
     logger.info(f"采样数量: {sample_size}")
-    outputs = pipe(
-        prompts[:sample_size],
-        max_new_tokens=4096,
-        temperature=0.7,  # 增加温度参数使生成更稳定
-        do_sample=True
-    )
-
-    # 处理结果：提取生成内容并转换为字典
-    results = [row[0]['generated_text'][len(prompts[idx]):] for idx, row in enumerate(outputs)]
-    results = [md_to_dict_str(row) for row in results]
-    results = [json.loads(row) for row in results]
-    logger.info(f"输出示例: {results[0]}")
-
-    # 保存结果
+    prompts = prompts[:sample_size]
+    batch_size = 10
+    logger.info(f"批次数量: {batch_size}")
     output_path = Path(f"./data/{model_name}")
     output_path.mkdir(parents=True, exist_ok=True)
     output_file = output_path / "results.txt"
 
+    # 重要：在开始循环前，以写入模式('w')打开文件一次，以清空之前运行的内容。
+    # 如果您希望在多次运行脚本时持续追加，可以移除这一行。
     with open(output_file, "w", encoding="utf-8") as f:
-        for res in results:
-            f.write(json.dumps(res, ensure_ascii=False) + '\n')
+        f.write("")  # 创建或清空文件
 
-    logger.info(f"结果已保存至: {output_file}")
+    # 2. 使用tqdm创建进度条并按批次循环
+    num_batches = (len(prompts) + batch_size - 1) // batch_size
+    results = []
+    for i in tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", total=num_batches):
+
+        # 获取当前批次的prompts
+        batch_prompts = prompts[i: i + batch_size]
+
+        # 如果当前批次为空，则跳过
+        if not batch_prompts:
+            continue
+
+        logger.info(f"正在处理批次 {i // batch_size + 1}/{num_batches}，包含 {len(batch_prompts)} 个样本。")
+
+        # 3. 对当前批次进行推理
+        # 错误处理：将模型推理放入try-except块，以防批次处理失败
+        # === 调用我们新的、健壮的辅助函数 ===
+        outputs = process_batch_with_retry(pipe, batch_prompts)
+
+        # 4. 处理当前批次的结果
+        # 错误处理：对每条结果进行单独处理，防止单个格式错误导致整个批次失败
+        processed_results = []
+        for idx, row in enumerate(outputs):
+            try:
+                # 1. 提取生成的内容
+                generated_part = row[0]['generated_text'][len(batch_prompts[idx]):]
+
+                # 2. 转换为字典字符串并解析为JSON
+                dict_str = md_to_dict_str(generated_part)
+                json_obj = json.loads(dict_str)
+
+                # 3. 如果成功，添加解析好的对象
+                processed_results.append(json_obj)
+
+            except json.JSONDecodeError as e:
+                # 4a. 如果JSON解析失败，记录日志并添加错误对象
+                error_message = f"JSON解析失败: {e}"
+                logger.warning(f"{error_message}。原始文本: '{dict_str[:150]}...'")
+                processed_results.append({
+                    'error': 'JSONDecodeError',
+                    'message': error_message,
+                    'raw_output': dict_str  # 将导致错误的原始字符串也记录下来，便于调试
+                })
+
+            except Exception as e:
+                # 4b. 如果发生其他任何异常，也记录日志并添加错误对象
+                error_message = f"处理单条结果时发生未知错误: {e}"
+                logger.error(error_message)
+                processed_results.append({
+                    'error': 'UnknownProcessingError',
+                    'message': error_message,
+                    'raw_output': row[0]['generated_text']  # 记录模型最原始的输出
+                })
+
+        logger.info(f"批次 {i // batch_size + 1} 处理完成，成功解析 {len(processed_results)} 条结果。")
+        if processed_results:
+            logger.info(f"输出示例: {processed_results[0]}")
+
+        # 5. 将处理好的结果追加到文件
+        # 使用追加模式 'a'
+        with open(output_file, "a", encoding="utf-8") as f:
+            for res in processed_results:
+                results.append(res)
+                f.write(json.dumps(res, ensure_ascii=False) + '\n')
+
+    logger.info(f"所有批次处理完毕！结果已保存至 {output_file}")
     return results
 
 

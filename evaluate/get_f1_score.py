@@ -8,7 +8,7 @@ import argparse
 from tqdm import tqdm
 import time
 import re
-from utils import logger
+from utils import logger,calculate_f1_score_from_csv
 from multiprocessing import Pool, cpu_count
 
 # --- 全局配置和日志设置 ---
@@ -337,6 +337,11 @@ def main(args):
         logger.info(f"详细评测结果已保存至: {args.output_file}")
     else:
         logger.warning("没有成功处理任何数据，不生成结果文件。")
+
+    f1_score_result = calculate_f1_score_from_csv(args.output_file)
+
+    # 3. 打印结果
+    logger.info(f"\n计算出的 F1-Score 为: {f1_score_result:.4f}")
 
 
 if __name__ == '__main__':

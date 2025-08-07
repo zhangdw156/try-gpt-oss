@@ -49,7 +49,7 @@ def formatting(example: dict) -> str:
     """
     messages = [
         {"role": "system", "content": example['instruction']},  # 定义developer角色和内容
-        {"role": "user", "content": example['input']},  # 定义user角色和内容
+        {"role": "user", "content": example['input'][:4096]},  # 定义user角色和内容
         {"role": "assistant", "content": example['output']}  # 定义assistant角色和内容
     ]
     return tokenizer.apply_chat_template(  # 使用tokenizer的chat_template函数格式化消息

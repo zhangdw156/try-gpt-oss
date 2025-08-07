@@ -49,8 +49,8 @@ def process_batch_with_retry(pipe, batch_prompts: list, max_retries_for_single: 
             second_half = batch_prompts[mid_point:]
 
             # 递归调用
-            outputs_first = process_batch_with_retry(pipe, first_half, logger, max_retries_for_single)
-            outputs_second = process_batch_with_retry(pipe, second_half, logger, max_retries_for_single)
+            outputs_first = process_batch_with_retry(pipe, first_half, max_retries_for_single)
+            outputs_second = process_batch_with_retry(pipe, second_half, max_retries_for_single)
 
             # 合并成功的结果
             return outputs_first + outputs_second
@@ -153,7 +153,6 @@ def get_f1_score_data(args):
     logger.info(f"采样数量: {sample_size}")
     prompts = prompts[:sample_size]
     batch_size = 10
-    logger.info(f"批次数量: {batch_size}")
     output_path = Path(f"./data/{model_name}")
     output_path.mkdir(parents=True, exist_ok=True)
     output_file = output_path / "results.txt"
@@ -165,6 +164,7 @@ def get_f1_score_data(args):
 
     # 2. 使用tqdm创建进度条并按批次循环
     num_batches = (len(prompts) + batch_size - 1) // batch_size
+    logger.info(f"批次数量: {num_batches}")
     results = []
     for i in tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", total=num_batches):
 
